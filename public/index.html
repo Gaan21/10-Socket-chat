@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Sign In</title>
+<<<<<<< HEAD
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+=======
+<<<<<<< HEAD
+=======
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+>>>>>>> 0a27de5bce3bb7a5f08b06388a38dc9379a072c9
+>>>>>>> 0a1ea433ff36581b9e4e3e1283b76296f54b3dea
+</head>
+<body>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <div id="g_id_onload"
+         data-client_id="543715283629-c09uctvkmerb1pmltrmb6o61l48a6jru.apps.googleusercontent.com"
+         data-callback="handleCredentialResponse"
+         data-auto_prompt="false">
+      </div>
+      <div class="g_id_signin"
+         data-type="standard"
+         data-size="large"
+         data-theme="outline"
+         data-text="sign_in_with"
+         data-shape="rectangular"
+         data-logo_alignment="left">
+      </div>
+
+<<<<<<< HEAD
+      <div class="col-sm-6">
+         <h1>Login manual</h1>
+         <hr>
+
+         <form>
+            <input type="text" name="correo" class="form-control mb-2" placeholder="correo"/>
+            <input type="text" name="contraseña" class="form-control mb-2" placeholder="contraseña"/>
+
+               <button type="submit" class="btn btn-primary">
+                  Ingresar
+               </button>
+
+         </form>
+         
+      </div>
+
+    
+
+      
+    
+    <h1>Google</h1>
+    <hr>
+=======
+<<<<<<< HEAD
+      <button id="google_signout">
+         Signout
+      </button>
+
+      <script>
+        function handleCredentialResponse(response) {
+           // decodeJwtResponse() is a custom function defined by you
+           // to decode the credential response. //Google token o ID_TOKEN
+           //console.log('id_token',response.credential);
+
+           //El id_token es igual a las credenciales que vienen de google
+           const body = { id_token: response.credential}; 
+
+           //Es una promesa(peticion fetch) que por defecto es una peticion GET
+           fetch('http://localhost:8080/api/auth/google', { //Transformar a peticion POST
+              
+               method: 'POST',
+               headers: {  //Para decirle que tipo de contenido estoy enviando
+                  'Content-type':'application/json'
+               },
+               body: JSON.stringify( body ) 
+               //DUDA //El body tiene que estar serializado, asi funciona el fetch API
+           })
+
+           .then( resp => resp.json() )//De la respuesta el fetch la pasa a .json
+
+           .then( resp => {
+              console.log(resp)//Ya la tenemos 'serializada'
+              localStorage.setItem( 'email', resp.usuario.correo )
+//Guardar el email del usuario cuando se autentica para despues hacer el signout con ese email
+           })
+           .catch( console.warn );  
+        }
+
+
+        const button = document.getElementById('google_signout');
+        
+        button.onclick = () => {
+
+         console.log( google.accounts.id )
+         google.accounts.id.disableAutoSelect()//Para mantenerlo desactivado
+
+         google.accounts.id.revoke( localStorage.getItem( 'email'), done =>{ //Un callback
+            localStorage.clear(); //Para limpiar lo que haya guardado en el localstorage
+            location.reload(); //Para recargar la pagina y vaciar cualquier cosa 
+         })
+         //Obtenemos el email guardado previamente en el localstorage
+        }
+
+      </script>
+    
+    <h1>Google</h1>
+    <hr>
+=======
+      <div class="col-sm-6">
+         <h1>Login manual</h1>
+         <hr>
+
+         <form>
+            <input type="text" name="correo" class="form-control mb-2" placeholder="correo"/>
+            <input type="text" name="contraseña" class="form-control mb-2" placeholder="contraseña"/>
+
+               <button type="submit" class="btn btn-primary">
+                  Ingresar
+               </button>
+
+         </form>
+         
+      </div>
+
+    
+
+      
+    
+    <h1>Google</h1>
+    <hr>
+>>>>>>> 0a1ea433ff36581b9e4e3e1283b76296f54b3dea
+
+      <script src="./js/auth.js"></script>
+
+      <button id="google_signout">
+         Signout
+      </button>
+<<<<<<< HEAD
+=======
+>>>>>>> 0a27de5bce3bb7a5f08b06388a38dc9379a072c9
+>>>>>>> 0a1ea433ff36581b9e4e3e1283b76296f54b3dea
+
+</body>
+</html>
